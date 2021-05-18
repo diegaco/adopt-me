@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import ErrorBoundary from './ErrorBoundary';
 import Carousel from './Carousel';
 
 class Detail extends Component {
@@ -15,6 +16,7 @@ class Detail extends Component {
     });
     console.log(this.state);
   }
+
 
   render() {
     const { loading, animal, breed, city, state, description, name, images } = this.state;
@@ -33,4 +35,10 @@ class Detail extends Component {
   }
 }
 
-export default withRouter(Detail);
+const DetailWithError = props => (
+  <ErrorBoundary>
+    <Detail {...props} />
+  </ErrorBoundary>
+)
+
+export default withRouter(DetailWithError);
