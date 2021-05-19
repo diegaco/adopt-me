@@ -14,9 +14,7 @@ class Detail extends Component {
       loading: false,
       ...data.pets[0]
     });
-    console.log(this.state);
   }
-
 
   render() {
     const { loading, animal, breed, city, state, description, name, images } = this.state;
@@ -35,10 +33,12 @@ class Detail extends Component {
   }
 }
 
-const DetailWithError = props => (
-  <ErrorBoundary>
-    <Detail {...props} />
-  </ErrorBoundary>
-)
+const DetailWithRouter = withRouter(Detail);
 
-export default withRouter(DetailWithError);
+export default function DetailWithError() {
+  return (
+    <ErrorBoundary>
+      <DetailWithRouter />
+    </ErrorBoundary>
+  )
+}
