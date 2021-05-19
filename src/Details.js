@@ -1,7 +1,8 @@
-import { Component } from 'react';
+import { Component, Consumer } from 'react';
 import { withRouter } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
 import Carousel from './Carousel';
+import ThemeContext from './ThemeContext';
 
 class Detail extends Component {
   state = { loading: true };
@@ -25,7 +26,13 @@ class Detail extends Component {
         <div>
           <h1>{name}</h1>
           <h2>{`${animal} - ${breed} - ${city} - ${state}`}</h2>
-          <button>{`Adopt ${name}!`}</button>
+          <ThemeContext.Consumer>
+            {
+              ([theme]) => (
+                <button style={{backgroundColor: theme, color: theme == '#000' ? '#fff' : '#000'}}>{`Adopt ${name}!`}</button>
+              )
+            }
+          </ThemeContext.Consumer>
           <p>{description}</p>
         </div>
       </div>

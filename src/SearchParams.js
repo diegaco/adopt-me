@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Results from './Results';
+import ThemeContext from './ThemeContext';
 import useBreedList from './useBreedList';
 
 const ANIMALS = ['cat', 'bird', 'dog', 'rabbit', 'reptile'];
@@ -10,6 +11,7 @@ const SearchParams = () => {
   const [breed, setBreed] = useState("");
   const [pets, setPets] = useState([]);
   const [breeds] = useBreedList(animal);
+  const [ theme, setTheme ] = useContext(ThemeContext);
 
   const requestPets = async () => {
     const res = await fetch(`http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}`);
@@ -24,6 +26,10 @@ const SearchParams = () => {
   const handleSubmit = ev => {
     ev.preventDefault();
     requestPets();
+  }
+
+  const handleThemeChange = (e) => {
+    setTheme(e.target.value);
   }
 
   return (
@@ -70,7 +76,19 @@ const SearchParams = () => {
             }
           </select>
         </label>
-        <button>Submit</button>
+        <label htmlFor="theme">
+          Theme
+          <select
+            name="theme"
+            id="theme"
+            onChange={handleThemeChange}
+            onBlur={handleThemeChange}
+          >
+            <option value="#000">Dark</option>
+            <option value="#eee">Light</option>
+          </select>
+        </label>
+        <button style={{backgroundColor: theme, color: theme == '#000' ? '#fff' : '#000'}}>Submit</button>
       </form>
       <Results pets={pets} />
     </div>
