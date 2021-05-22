@@ -33,23 +33,26 @@ const SearchParams = () => {
   }
 
   return (
-    <div className="search-params">
-      <form action="" onSubmit={handleSubmit}>
-        <label htmlFor="location">
+    <div
+      className="my-0 mx-auto w-11/12">
+      <form className="p-10 mb-10 rounded-lg bg-gray-200 shadow-lg flex flex-col justify-center items-center divide-y divide-gray-900" action="" onSubmit={handleSubmit}>
+        <label htmlFor="location" className="search-label">
           Location
           <input
             type="text"
             name="location"
+            className="search-control"
             id="location"
             value={location}
             placeholder="Location..."
             onChange={e => setLocation(e.target.value)}
           />
         </label>
-        <label htmlFor="animal">
+        <label htmlFor="animal" className="search-label">
           Animal
           <select
             name="animal"
+            className="search-control"
             id="animal"
             value={animal}
             onChange={e => setAnimal(e.target.value)}
@@ -61,11 +64,13 @@ const SearchParams = () => {
             }
           </select>
         </label>
-        <label htmlFor="breed">
+        <label htmlFor="breed" className="search-label">
           Breed
           <select
             name="breed"
             id="breed"
+            className="search-control disabled:opacity-50"
+            disabled={!breeds.length}
             value={breed}
             onChange={e => setBreed(e.target.value)}
             onBlur={e => setBreed(e.target.value)}
@@ -76,11 +81,12 @@ const SearchParams = () => {
             }
           </select>
         </label>
-        <label htmlFor="theme">
+        <label htmlFor="theme" className="search-label">
           Theme
           <select
             name="theme"
             id="theme"
+            className="search-control"
             onChange={handleThemeChange}
             onBlur={handleThemeChange}
           >
@@ -88,7 +94,7 @@ const SearchParams = () => {
             <option value="#eee">Light</option>
           </select>
         </label>
-        <button style={{backgroundColor: theme, color: theme == '#000' ? '#fff' : '#000'}}>Submit</button>
+        <button className="rounded px-6 py-2 text-white hover:opacity-50 border-none" style={{backgroundColor: theme }}>Submit</button>
       </form>
       <Results pets={pets} />
     </div>
