@@ -1,9 +1,10 @@
-import { Component, Consumer } from 'react';
+import { Component, lazy } from 'react';
 import { withRouter } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
 import Carousel from './Carousel';
 import ThemeContext from './ThemeContext';
-import Modal from './Modal';
+
+const Modal = lazy(()=> import('./Modal'));
 
 class Detail extends Component {
   state = { loading: true, showModal: false };
