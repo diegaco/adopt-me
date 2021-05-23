@@ -15,11 +15,11 @@ class Carousel extends Component {
 
     return (
       <div className="carousel">
-        <img src={images[active]} alt="animal" />
-        <div className="carousel-smaller">
+        <img className="mb-4 w-full rounded-md" src={images[active]} alt="animal" />
+        <div className="carousel-smaller grid grid-flow-col auto-cols-auto gap-x-4">
           {images.map((image, idx) => (
             // eslint-disable-next-line
-            <img onClick={() => this.handleClick(idx)} key={image} src={image} className={idx == active ? 'active' : ''} alt="animal thumbnail"/>
+            <img onClick={() => this.handleClick(idx)} key={image} src={image} className={"w-100 h-100 rounded-full hover:opacity-50 cursor-pointer" + (idx == active ? " active" : '')} alt="animal thumbnail"/>
           ))}
         </div>
       </div>

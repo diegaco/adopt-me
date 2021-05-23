@@ -25,32 +25,34 @@ class Detail extends Component {
     const { loading, animal, breed, city, state, description, name, images, showModal } = this.state;
     if (loading) return <h2>Loading....</h2>;
     return (
-      <div className="details">
-        <Carousel images={images} />
-        <div>
-          <h1>{name}</h1>
-          <h2>{`${animal} - ${breed} - ${city} - ${state}`}</h2>
-          <ThemeContext.Consumer>
+      <div className="my-0 mx-auto w-8/12">
+        <div className="grid grid-cols-12 gap-y-4 md:gap-y-0 md:gap-x-10">
+          <div className="col-span-12 md:col-span-4 md:col-start-9">
+            <h1 className="text-6xl font-bold uppercase">{name}</h1>
+            <h2 className="text-3xl text-gray-500 mb-5">{`${animal} - ${breed} - ${city} - ${state}`}</h2>
+            <p className="mb-5 text-gray-600 border-b pb-5">{description}</p>
+            <ThemeContext.Consumer>
+              {
+                ([theme]) => (
+                  <button onClick={this.toggleModal} style={{backgroundColor: theme}} className="rounded px-6 py-2 text-white hover:opacity-50 border-none">{`Adopt ${name}!`}</button>
+                )
+              }
+            </ThemeContext.Consumer>
             {
-              ([theme]) => (
-                <button onClick={this.toggleModal} style={{backgroundColor: theme, color: theme == '#000' ? '#fff' : '#000'}}>{`Adopt ${name}!`}</button>
-              )
+              showModal ?
+                <Modal toggleModal={this.toggleModal}>
+                    <h1 className="text-6xl text-center mb-12">Would you like to adopt {name}?</h1>
+                    <div className="flex justify-center">
+                      <button className="bg-blue-800 mr-3 rounded px-6 py-2 text-white hover:opacity-80 border-none" onClick={this.adopt}>Yes</button>
+                      <button className="bg-gray-500 rounded px-6 py-2 text-dark hover:opacity-80 border-none" onClick={this.toggleModal}>No</button>
+                    </div>
+                </Modal> :
+                null
             }
-          </ThemeContext.Consumer>
-          <p>{description}</p>
-          {
-            showModal ?
-              <Modal>
-                <div>
-                  <h1>Would you like to adopt {name}?</h1>
-                  <div className="buttons">
-                    <button onClick={this.adopt}>Yes</button>
-                    <button onClick={this.toggleModal}>No</button>
-                  </div>
-                </div>
-              </Modal> :
-              null
-          }
+          </div>
+          <div className="col-span-12 md:col-span-8 md:col-start-1 md:row-start-1">
+            <Carousel images={images} />
+          </div>
         </div>
       </div>
     );
