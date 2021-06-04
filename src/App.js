@@ -1,19 +1,19 @@
-import { StrictMode, useState, lazy, Suspense } from 'react';
+import { StrictMode, lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 // import Pet from './Pet';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './store';
 // import SearchParams from './SearchParams';
 // import Details from './Details';
-import ThemeContext from './ThemeContext';
 
 const Details = lazy(() => import('./Details'));
 const SearchParams = lazy(()=>import('./SearchParams'));
 
 const App = () => {
-  const theme = useState('#000');
 
   return (
-    <ThemeContext.Provider value={theme}>
+    <Provider store={store}>
       <div
         className="p-0 m-0"
         style={{
@@ -40,7 +40,7 @@ const App = () => {
           </Router>
         </Suspense>
       </div>
-    </ThemeContext.Provider>
+    </Provider>
   )
  };
 

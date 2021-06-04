@@ -1,4 +1,4 @@
-export default function theme(state = '', { type, payload }) {
+export default function breed(state = 'havanese', { type, payload }) {
   if (type == 'CHANGE_BREED') {
     return payload;
   } else {
